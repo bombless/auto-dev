@@ -19,12 +19,15 @@ class AutoDevSettingsState : PersistentStateComponent<AutoDevSettingsState> {
     var aiEngine = DEFAULT_AI_ENGINE
     var customOpenAiHost = ""
     var customEngineServer = ""
+    var customEngineCookie = ""
     var customEngineToken = ""
     var customPrompts = ""
 
     var xingHuoAppId = ""
     var xingHuoApiSecrect = ""
     var xingHuoApiKey = ""
+
+    var poeCookie = ""
 
     /**
      * should be a json path

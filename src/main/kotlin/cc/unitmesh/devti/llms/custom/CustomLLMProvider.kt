@@ -39,6 +39,7 @@ data class CustomRequest(val messages: List<Message>)
 class CustomLLMProvider(val project: Project) : LLMProvider {
     private val autoDevSettingsState = AutoDevSettingsState.getInstance()
     private val url get() = autoDevSettingsState.customEngineServer
+    private val cookie get() = autoDevSettingsState.customEngineCookie
     private val key get() = autoDevSettingsState.customEngineToken
     private val engineFormat get() = autoDevSettingsState.customEngineResponseFormat
     private val customPromptConfig: CustomPromptConfig?
@@ -84,7 +85,7 @@ class CustomLLMProvider(val project: Project) : LLMProvider {
         }
 
         client = client.newBuilder().readTimeout(timeout).build()
-        val request = builder.url(url).post(body).build()
+        val request = builder.url(url).post(body).addHeader("Cookie", cookie).build()
 
         val call = client.newCall(request)
         val emitDone = false
@@ -143,7 +144,7 @@ class CustomLLMProvider(val project: Project) : LLMProvider {
         try {
             client = client.newBuilder().readTimeout(timeout).build()
 
-            val request = builder.url(url).post(body).build()
+            val request = builder.url(url).post(body).addHeader("Cookie", cookie).build()
             val response = client.newCall(request).execute()
 
             if (!response.isSuccessful) {

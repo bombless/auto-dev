@@ -35,6 +35,7 @@ class AppSettingsComponent(settings: AutoDevSettingsState) {
 
     private val aiEngine = ComboBox(AI_ENGINES)
     private val customEngineServer = JBTextField()
+    private val customEngineCookie = JBTextField()
     private val customEngineToken = JBTextField()
     private val delaySeconds = JBTextField()
 
@@ -94,6 +95,7 @@ class AppSettingsComponent(settings: AutoDevSettingsState) {
             .addLabeledComponent(JBLabel("Custom OpenAI Host: "), customOpenAiHost, 1, false)
             .addSeparator()
             .addLabeledComponent(JBLabel("Custom Engine Server: "), customEngineServer, 1, false)
+            .addLabeledComponent(JBLabel("Custom Engine Cookie: "), customEngineCookie, 1, false)
             .addLabeledComponent(JBLabel("Custom Engine Token: "), customEngineToken, 1, false)
             .addLabeledComponent(
                 JBLabel("Custom Response Format (Json Path): "),
@@ -185,6 +187,10 @@ class AppSettingsComponent(settings: AutoDevSettingsState) {
         return customEngineServer.text
     }
 
+    fun getCustomEngineCookie(): String {
+        return customEngineCookie.text
+    }
+
     private fun setCustomEngineServer(newText: String) {
         customEngineServer.text = newText
     }
@@ -271,6 +277,7 @@ class AppSettingsComponent(settings: AutoDevSettingsState) {
                 settings.customOpenAiHost != getOpenAiHost() ||
                 settings.aiEngine != getAiEngine() ||
                 settings.customEngineServer != getCustomEngineServer() ||
+                settings.customEngineCookie != getCustomEngineCookie() ||
                 settings.customEngineToken != getCustomEngineToken() ||
                 settings.customPrompts != getCustomEnginePrompt() ||
                 settings.customEngineResponseFormat != getCustomEngineResponseFormat() ||
@@ -297,6 +304,7 @@ class AppSettingsComponent(settings: AutoDevSettingsState) {
             customOpenAiHost = getOpenAiHost()
             aiEngine = getAiEngine()
             customEngineServer = getCustomEngineServer()
+            customEngineCookie = getCustomEngineCookie()
             customEngineToken = getCustomEngineToken()
             customPrompts = getCustomEnginePrompt()
             customEngineResponseFormat = getCustomEngineResponseFormat()

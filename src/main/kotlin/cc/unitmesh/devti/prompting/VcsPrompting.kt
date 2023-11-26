@@ -39,6 +39,7 @@ import java.nio.file.Path
 import java.nio.file.PathMatcher
 import java.util.stream.Collectors
 import kotlin.math.min
+import kotlin.streams.toList
 
 @Service(Service.Level.PROJECT)
 class VcsPrompting(private val project: Project) {
@@ -49,7 +50,7 @@ class VcsPrompting(private val project: Project) {
             val writer = StringWriter()
             val basePath = project.basePath ?: throw RuntimeException("Project base path is null.")
 
-            val filteredChanges = changes.stream()
+            val stream = changes.stream()
                 .filter { change -> !isBinaryOrTooLarge(change!!) }
                 .filter {
                     val filePath = it.afterRevision?.file
@@ -61,7 +62,7 @@ class VcsPrompting(private val project: Project) {
                         true
                     }
                 }
-                .toList()
+            val filteredChanges = stream.toList()
 
             if (filteredChanges.isEmpty()) {
                 return ""

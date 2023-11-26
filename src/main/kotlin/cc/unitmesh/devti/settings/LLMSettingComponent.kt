@@ -31,6 +31,7 @@ class LLMSettingComponent(private val settings: AutoDevSettingsState) {
 
     private val gitHubTokenParam by LLMParam.creating { Password(settings.githubToken) }
     private val customEngineServerParam by LLMParam.creating { Editable(settings.customEngineServer) }
+    private val customEngineCookieParam by LLMParam.creating { Editable(settings.customEngineCookie) }
     private val customEngineTokenParam by LLMParam.creating { Password(settings.customEngineToken) }
     private val xingHuoAppIDParam by LLMParam.creating { Editable(settings.xingHuoAppId) }
     private val xingHuoApiKeyParam by LLMParam.creating { Password(settings.xingHuoApiKey) }
@@ -75,6 +76,7 @@ class LLMSettingComponent(private val settings: AutoDevSettingsState) {
         ),
         AIEngines.Custom to listOf(
             customEngineServerParam,
+            customEngineCookieParam,
             customEngineTokenParam,
             customEngineResponseFormatParam,
         ),
@@ -178,6 +180,7 @@ class LLMSettingComponent(private val settings: AutoDevSettingsState) {
             openAIKeyParam.value = openAiKey
             customOpenAIHostParam.value = customOpenAiHost
             customEngineServerParam.value = customEngineServer
+            customEngineCookieParam.value = customEngineCookie
             customEngineTokenParam.value = customEngineToken
             openAIModelsParam.value = openAiModel
             xingHuoAppIDParam.value = xingHuoAppId
@@ -206,6 +209,7 @@ class LLMSettingComponent(private val settings: AutoDevSettingsState) {
             aiEngine = aiEngineParam.value
             language = languageParam.value
             customEngineServer = customEngineServerParam.value
+            customEngineCookie = customEngineCookieParam.value
             customEngineToken = customEngineTokenParam.value
             customPrompts = customEnginePrompt.text
             openAiModel = openAIModelsParam.value
@@ -227,6 +231,7 @@ class LLMSettingComponent(private val settings: AutoDevSettingsState) {
                 settings.aiEngine != aiEngineParam.value ||
                 settings.language != languageParam.value ||
                 settings.customEngineServer != customEngineServerParam.value ||
+                settings.customEngineCookie != customEngineCookieParam.value ||
                 settings.customEngineToken != customEngineTokenParam.value ||
                 settings.customPrompts != customEnginePrompt.text ||
                 settings.openAiModel != openAIModelsParam.value ||
